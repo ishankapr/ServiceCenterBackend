@@ -1,12 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using ServiceCenterBackend.BusinessLogic;
+using ServiceCenterBackend.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,10 +30,12 @@ namespace ServiceCenterBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMemoryCache();
+            services.AddScoped<IUserConnectLogic, UserConnectLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMemoryCache cache)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +50,19 @@ namespace ServiceCenterBackend
             {
                 endpoints.MapControllers();
             });
+
+            //Read file and add data into cache as a data store option
+            string path = @"./Database/Kacific_service_engineers.json";
+
+            if (File.Exists(path))
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromHours(3));
+
+                var data = JsonConvert.DeserializeObject<List<ServiceEngineer>>(File.ReadAllText(path));
+                cache.Set("Engineers", data, cacheEntryOptions); 
+            }
+                
         }
     }
 }
