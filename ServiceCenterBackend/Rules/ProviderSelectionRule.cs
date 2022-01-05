@@ -23,11 +23,11 @@ namespace ServiceCenterBackend.Rules
             {
                 priorities.Add(new string[] { "D" });
             }
-            if (category == CategoryEnum.Hardware && languageLevel == LanguageLevelEnum.DontSpeakBahasa)
+            if (category == CategoryEnum.Hardware && languageLevel == LanguageLevelEnum.NotSpeaksBahasa)
             {
                 priorities.Add(new string[] { "B" });
             }
-            if (category == CategoryEnum.Network && languageLevel == LanguageLevelEnum.DontSpeakBahasa)
+            if (category == CategoryEnum.Network && languageLevel == LanguageLevelEnum.NotSpeaksBahasa)
             {
                 priorities.Add(new string[] { "C" });
             }

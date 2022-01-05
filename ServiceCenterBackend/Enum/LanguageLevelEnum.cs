@@ -3,7 +3,7 @@
     public enum LanguageLevelEnum
     {
         SpeaksBahasa = 1,
-        DontSpeakBahasa = 2,
+        NotSpeaksBahasa = 2,
         Regardless = 3
     }
 }
