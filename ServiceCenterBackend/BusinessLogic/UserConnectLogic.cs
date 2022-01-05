@@ -72,7 +72,8 @@ namespace ServiceCenterBackend.BusinessLogic
                 engineerConnectResponse = new ServiceEngineerConnectResponse()
                 {
                     IsConnected = true,
-                    Text = $"{customer.Name} is now connected with {selectedEngineer.Name}"
+                    Text = $"{customer.Name} is now connected with {selectedEngineer.Name}",
+                    ConnectedEngineer = selectedEngineer.Name
                 };
             }
 
