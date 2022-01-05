@@ -7,5 +7,7 @@ namespace ServiceCenterBackend.Models
         public string Name { get; set; }
         public CategoryEnum Category { get; set; }
         public LanguageLevelEnum LanguageLevel { get; set; }
+        public string ConnectedEngineer { get; set; }
+        public bool IsConnected { get; set; }
     }
 }

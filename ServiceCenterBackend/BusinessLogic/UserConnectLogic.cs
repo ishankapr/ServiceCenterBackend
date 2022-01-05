@@ -50,6 +50,7 @@ namespace ServiceCenterBackend.BusinessLogic
                 engineerConnectResponse = new ServiceEngineerConnectResponse()
                 {
                     IsConnected = false,
+                    IsAllEngineersBusy = true,
                     Text = "All service engineers are busy. Please wait.."
                 };
 
@@ -75,37 +76,13 @@ namespace ServiceCenterBackend.BusinessLogic
                     Text = $"{customer.Name} is now connected with {selectedEngineer.Name}",
                     ConnectedEngineer = selectedEngineer.Name
                 };
+
+                _logger.LogInformation($"{ customer.Name } successfully connected with service engineer..");
             }
 
             return engineerConnectResponse;
         }
 
-        public bool DisconnectEngineer(Customer customer)
-        {
-            _logger.LogInformation($"{ customer.Name } trying to disconnect from service engineer..");
-            List<ServiceEngineer> engineers = _cache.Get<List<ServiceEngineer>>("Engineers");
-            var selectedEngineer = engineers.Where(o => o.AsignedCustomer == customer.Name).FirstOrDefault();
-
-            if(selectedEngineer == null)
-            {
-                _logger.LogInformation($"{ customer.Name } could not find any service engineer conected..");
-                return false;
-            }
-                
-            engineers.Remove(selectedEngineer);
-            engineers.Add(new ServiceEngineer()
-            {
-                AsignedCustomer = null,
-                Groups = selectedEngineer.Groups,
-                IsAssigned = false,
-                Name = selectedEngineer.Name
-            });
-
-            _cache.Remove("Engineers");
-            _cache.Set("Engineers", engineers);
-            _logger.LogInformation($"{ customer.Name } successfully disconnect from service engineer..");
-
-            return true;
-        }
+       
     }
 }

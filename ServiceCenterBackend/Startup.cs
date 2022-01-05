@@ -29,6 +29,13 @@ namespace ServiceCenterBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("Allow_API",
+                policy => policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                ));
+
             services.AddControllers();
             services.AddMemoryCache();
             services.AddScoped<IUserConnectLogic, UserConnectLogic>();
@@ -37,6 +44,8 @@ namespace ServiceCenterBackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMemoryCache cache)
         {
+            app.UseCors("Allow_API");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -31,12 +31,5 @@ namespace ServiceCenterBackend.Controllers
             return response;
         }
 
-        [HttpPost]
-        [Route("disconnect")]
-        public bool DisconnectEngineer(Customer customer)
-        {
-            _logger.LogInformation($"{customer.Name} is trying to disconnect service engineer");
-            return _userConnectLogic.DisconnectEngineer(customer);
-        }
     }
 }
