@@ -22,8 +22,8 @@ It will initially read data from file(Kacific_service_engineers.json) in **Start
 
 ## Check the functionality
 
--You can easily get the **[ServiceCenterFrontend](https://github.com/ishankapr/ServiceCenterFrontend)** application and connect the backend with that and test the scenarios
--Use postman and make request from it
+- You can easily get the **[ServiceCenterFrontend](https://github.com/ishankapr/ServiceCenterFrontend)** application and connect the backend with that and test the scenarios
+- Use postman and make request from it
 
 ### Postman cURL
 
